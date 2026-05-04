@@ -15,7 +15,7 @@ export function QuickValidateButton({
   onConfirm,
   disabled = false,
   idleLabel = 'Valider',
-  armedLabel = 'Recliquez pour confirmer',
+  armedLabel = 'Confirmer',
   idleClassName = 'primary compact',
   armedClassName = 'validate-confirm compact',
 }: QuickValidateButtonProps) {

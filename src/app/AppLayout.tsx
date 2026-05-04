@@ -1,8 +1,8 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { useEffect, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 import { useAuth } from '../auth/useAuth'
+import { ThemeToggle } from '../components/ThemeToggle'
 import { db } from '../services/db'
 import { useOnlineStatus } from '../hooks/useOnlineStatus'
 
@@ -12,32 +12,10 @@ async function readSyncCounters(scope: string) {
   return { pending, failed }
 }
 
-type ThemeMode = 'light' | 'dark'
-const THEME_STORAGE_KEY = 'keeptrack.theme'
-
-function getInitialTheme(): ThemeMode {
-  if (typeof window === 'undefined') {
-    return 'light'
-  }
-
-  const stored = window.localStorage.getItem(THEME_STORAGE_KEY)
-  if (stored === 'light' || stored === 'dark') {
-    return stored
-  }
-
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
-
 export function AppLayout() {
   const online = useOnlineStatus()
   const navigate = useNavigate()
   const { session, logout } = useAuth()
-  const [theme, setTheme] = useState<ThemeMode>(() => getInitialTheme())
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    window.localStorage.setItem(THEME_STORAGE_KEY, theme)
-  }, [theme])
 
   const syncStats = useLiveQuery(
     async () => (session ? readSyncCounters(session.scope) : { pending: 0, failed: 0 }),
@@ -62,14 +40,7 @@ export function AppLayout() {
           <span className={`pill ${online ? 'pill-online' : 'pill-offline'}`}>
             {online ? 'En ligne' : 'Hors ligne'}
           </span>
-          <label className="theme-toggle pill">
-            <input
-              type="checkbox"
-              checked={theme === 'dark'}
-              onChange={(event) => setTheme(event.target.checked ? 'dark' : 'light')}
-            />
-            <span>Sombre</span>
-          </label>
+          <ThemeToggle className="pill" />
           {session && (
             <span className="email-chip">{session.mode === 'guest' ? 'Invité' : `👤 ${session.email}`}</span>
           )}

@@ -347,6 +347,17 @@ button:disabled {
   gap: 1rem;
 }
 
+.public-auth-shell {
+  width: 100%;
+}
+
+.public-theme-toggle {
+  position: fixed;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 20;
+}
+
 .auth-head {
   text-align: center;
 }
@@ -479,19 +490,6 @@ button:disabled {
   text-decoration: none;
   min-width: 0;
   overflow-wrap: anywhere;
-}
-
-.task-category-tag {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--chip-bg);
-  color: var(--muted);
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.06rem 0.44rem;
-  white-space: nowrap;
 }
 
 .task-status-badge {
@@ -635,6 +633,10 @@ button:disabled {
 .warning,
 .error {
   color: var(--danger);
+}
+
+.success {
+  color: var(--success);
 }
 
 .link-like {

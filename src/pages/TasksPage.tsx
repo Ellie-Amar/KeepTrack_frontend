@@ -260,7 +260,6 @@ export function TasksPage() {
                   <div className="task-head">
                     <div className="task-head-main">
                       <p className="task-title">{view.task.label}</p>
-                      {view.task.category && <span className="task-category-tag">{view.task.category}</span>}
                     </div>
                     <span className={`task-status-badge ${getTaskStatusClassName(view.task.status)}`}>
                       {getTaskStatusLabel(view.task.status)}

@@ -31,13 +31,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     () => ({
       session,
       loginWithPassword: async (email, password) => createSessionFromLogin(email, password),
-      signupAndLogin: async (email, password, displayName) => {
-        await signup({
+      signupWithPassword: async (email, password, displayName) => {
+        return signup({
           email,
           password,
           display_name: displayName.trim() || null,
         })
-        return createSessionFromLogin(email, password)
       },
       continueAsGuest: () => {
         setSession(createGuestSession())

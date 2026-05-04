@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import type { Session } from '../types'
+import type { ApiUser, Session } from '../types'
 
 export interface LoginResult {
   session: Session
@@ -10,7 +10,7 @@ export interface LoginResult {
 export interface AuthContextValue {
   session: Session | null
   loginWithPassword: (email: string, password: string) => Promise<LoginResult>
-  signupAndLogin: (email: string, password: string, displayName: string) => Promise<LoginResult>
+  signupWithPassword: (email: string, password: string, displayName: string) => Promise<ApiUser>
   continueAsGuest: () => void
   logout: () => void
 }

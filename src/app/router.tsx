@@ -6,6 +6,7 @@ import { AuthPage } from '../pages/AuthPage'
 import { NewTaskPage } from '../pages/NewTaskPage'
 import { TaskDetailPage } from '../pages/TaskDetailPage'
 import { TasksPage } from '../pages/TasksPage'
+import { VerifyEmailPage } from '../pages/VerifyEmailPage'
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
   {
     path: '/auth',
     element: <AuthPage />,
+  },
+  {
+    path: '/verify-email',
+    element: <VerifyEmailPage />,
   },
   {
     path: '/',

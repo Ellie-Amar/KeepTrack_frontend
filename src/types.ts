@@ -67,6 +67,8 @@ export interface ApiUser {
   displayName?: string
   is_active: boolean
   isActive?: boolean
+  email_verified?: boolean
+  emailVerified?: boolean
 }
 
 export interface LocalTask {

@@ -31,6 +31,7 @@ function normalizeUser(user: ApiUser): ApiUser {
     email: user.email,
     display_name: user.display_name ?? user.displayName ?? null,
     is_active: user.is_active ?? user.isActive ?? true,
+    email_verified: user.email_verified ?? user.emailVerified ?? false,
   }
 }
 
@@ -88,6 +89,14 @@ export async function login(email: string, password: string) {
     skipAuth: true,
   })
   return normalizeAuthTokens(raw)
+}
+
+export async function verifyEmail(token: string) {
+  const raw = await requestJson<ApiUser>(`/api/v1/users/verify-email?token=${encodeURIComponent(token)}`, {
+    method: 'GET',
+    skipAuth: true,
+  })
+  return normalizeUser(raw)
 }
 
 export async function listTasks() {
