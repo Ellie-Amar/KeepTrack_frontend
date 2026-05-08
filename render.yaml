@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: keeptrack-frontend-ellie-amar
+    name: keeptrack
     runtime: static
     plan: free
     branch: main
@@ -9,7 +9,7 @@ services:
     routes:
       - type: rewrite
         source: /api/*
-        destination: https://keeptrack-backend-ellie-amar.onrender.com/*
+        destination: https://keeptrack-api.onrender.com/*
       - type: rewrite
         source: /*
         destination: /index.html
