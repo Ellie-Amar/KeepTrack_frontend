@@ -695,6 +695,16 @@ button:disabled {
   cursor: pointer;
 }
 
+.install-button {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.install-hint {
+  border-style: dashed;
+  color: var(--muted);
+}
+
 .fab-add:focus-visible {
   outline: 2px solid var(--accent-strong);
   outline-offset: 3px;
@@ -972,5 +982,10 @@ button:disabled {
 
   .auth-actions {
     grid-template-columns: 1fr;
+  }
+
+  .install-hint {
+    max-width: 100%;
+    line-height: 1.2;
   }
 }

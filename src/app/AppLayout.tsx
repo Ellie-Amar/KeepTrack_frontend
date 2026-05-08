@@ -3,8 +3,9 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 import { useAuth } from '../auth/useAuth'
 import { ThemeToggle } from '../components/ThemeToggle'
-import { db } from '../services/db'
+import { usePwaInstall } from '../hooks/usePwaInstall'
 import { useOnlineStatus } from '../hooks/useOnlineStatus'
+import { db } from '../services/db'
 
 async function readSyncCounters(scope: string) {
   const pending = await db.syncJobs.where('[scope+status]').equals([scope, 'pending']).count()
@@ -16,6 +17,7 @@ export function AppLayout() {
   const online = useOnlineStatus()
   const navigate = useNavigate()
   const { session, logout } = useAuth()
+  const { canPromptInstall, showIosInstallHint, showGenericInstallHint, promptInstall } = usePwaInstall()
 
   const syncStats = useLiveQuery(
     async () => (session ? readSyncCounters(session.scope) : { pending: 0, failed: 0 }),
@@ -26,6 +28,10 @@ export function AppLayout() {
   const handleLogout = () => {
     logout()
     void navigate('/auth')
+  }
+
+  const handleInstallClick = () => {
+    void promptInstall()
   }
 
   const hasPendingSync = syncStats.pending > 0
@@ -41,6 +47,17 @@ export function AppLayout() {
             {online ? 'En ligne' : 'Hors ligne'}
           </span>
           <ThemeToggle className="pill" />
+          {canPromptInstall && (
+            <button className="ghost compact install-button" type="button" onClick={handleInstallClick}>
+              Installer l'app
+            </button>
+          )}
+          {showIosInstallHint && (
+            <span className="pill install-hint">iOS: Partager puis Sur l'ecran d'accueil</span>
+          )}
+          {showGenericInstallHint && (
+            <span className="pill install-hint">Menu navigateur: Installer l'app / Ajouter a l'ecran d'accueil</span>
+          )}
           {session && (
             <span className="email-chip">{session.mode === 'guest' ? 'Invité' : `👤 ${session.email}`}</span>
           )}
